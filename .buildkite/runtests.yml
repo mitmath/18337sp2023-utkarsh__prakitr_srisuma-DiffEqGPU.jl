@@ -9,8 +9,9 @@ steps:
       - JuliaCI/julia-test#v1:
            coverage: false # 1000x slowdown
     agents:
-      queue: "juliagpu"
-      cuda: "*"
+      queue: "juliaecosystem"
+      os: "macos"
+      arch: "aarch64"
     timeout_in_minutes: 120
     # Don't run Buildkite if the commit message includes the text [skip tests]
     if: build.message !~ /\[skip tests\]/
