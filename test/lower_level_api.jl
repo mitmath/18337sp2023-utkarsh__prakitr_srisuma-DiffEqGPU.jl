@@ -1,4 +1,4 @@
-using DiffEqGPU, StaticArrays, DiffEqBase
+using DiffEqGPU, StaticArrays, DiffEqBase, BenchmarkTools
 
 trajectories = 10_000
 
