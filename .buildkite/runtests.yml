@@ -15,12 +15,12 @@ steps:
     # Don't run Buildkite if the commit message includes the text [skip tests]
     if: build.message !~ /\[skip tests\]/
   
-  - label: ":julia: Run tests on Julia v1 with AMD ROCm"
+  - label: ":julia: Run tests on Julia v1.9 with AMD ROCm"
     env:
       GROUP: ROCM
     plugins:
       - JuliaCI/julia#v1:
-          version: "1"
+          version: "1.9-nightly"
           persist_depot_dirs: ""
       - JuliaCI/julia-test#v1:
            coverage: false # 1000x slowdown

@@ -21,7 +21,12 @@ using Parameters, MuladdMacro
 using Random
 
 # TODO: remove
-using CUDA, CUDAKernels
+try
+    using CUDA, CUDAKernels
+catch e
+    @warn e
+end
+
 using AMDGPU, ROCKernels
 try
     using oneAPI, oneAPIKernels
