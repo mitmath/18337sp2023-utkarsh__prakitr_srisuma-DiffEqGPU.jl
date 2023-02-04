@@ -34,7 +34,6 @@ probs = probs |> oneArray
 @time ts, us = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
 
-
 ## Adaptive time-stepping
 # Run once for compilation
 @time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
