@@ -41,9 +41,9 @@ end
 @time ts, us = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
 
-@benchmark DiffEqGPU.vectorized_solve($probs, $prob, GPUTsit5(); save_everystep = false,
+bench = @benchmark DiffEqGPU.vectorized_solve($probs, $prob, GPUTsit5(); save_everystep = false,
                                       dt = 0.1f0)
-
+@show bench
 ## Adaptive time-stepping
 # Run once for compilation
 @time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
@@ -52,5 +52,6 @@ end
 @time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
 
-@benchmark DiffEqGPU.vectorized_asolve($probs, $prob, GPUTsit5(); save_everystep = false,
+bench = @benchmark DiffEqGPU.vectorized_asolve($probs, $prob, GPUTsit5(); save_everystep = false,
                                        dt = 0.1f0)
+@show bench
