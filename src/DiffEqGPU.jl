@@ -23,6 +23,7 @@ using Random
 # TODO: remove
 using CUDA, CUDAKernels
 using AMDGPU, ROCKernels
+using oneAPI, oneAPIKernels
 
 @kernel function gpu_kernel(f, du, @Const(u), @Const(p), @Const(t))
     i = @index(Global, Linear)
@@ -693,6 +694,8 @@ function batch_solve_up_kernel(ensembleprob, probs, alg, ensemblealg, I, adaptiv
     elseif has_rocm_gpu()
         ## TODO: Add support for ROCArrays
         roc(probs)
+    else
+        probs |> oneArray
     end
 
     #Adaptive version only works with saveat

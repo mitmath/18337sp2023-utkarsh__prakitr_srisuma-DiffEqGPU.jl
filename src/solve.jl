@@ -35,6 +35,8 @@ function vectorized_solve(probs, prob::ODEProblem, alg;
         CuArray, CUDADevice{true}() #=prefer_blocks=#
     elseif get_device(probs) isa ROCDevice
         ROCArray, ROCDevice()
+    elseif get_device(probs) isa oneAPIDevice
+        (oneArray, oneAPIDevice())
     end
     if saveat === nothing
         if save_everystep
@@ -87,6 +89,8 @@ function vectorized_solve(probs, prob::SDEProblem, alg;
         (CuArray, CUDADevice{true}()) #=prefer_blocks=#
     elseif get_device(probs) isa ROCDevice
         (ROCArray, ROCDevice())
+    elseif get_device(probs) isa oneAPIDevice
+        (oneArray, oneAPIDevice())
     end
     if saveat === nothing
         if save_everystep
@@ -132,6 +136,8 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
         (CuArray, CUDADevice{true}()) #=prefer_blocks=#
     elseif get_device(probs) isa ROCDevice
         (ROCArray, ROCDevice())
+    elseif get_device(probs) isa oneAPIDevice
+        (oneArray, oneAPIDevice())
     end
     # if saveat is specified, we'll use a vector of timestamps.
     # otherwise it's a matrix that may be different for each ODE.
