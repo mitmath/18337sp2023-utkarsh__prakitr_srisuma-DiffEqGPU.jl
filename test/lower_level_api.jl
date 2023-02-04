@@ -29,7 +29,7 @@ end;
 if GROUP == "ROCM"
     @show "Here"
     using AMDGPU
-    probs = roc(probs);
+    probs = roc(probs)
 elseif GROUP == "ONEAPI"
     using oneAPI
     probs = probs |> oneArray

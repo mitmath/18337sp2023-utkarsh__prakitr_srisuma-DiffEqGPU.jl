@@ -1302,7 +1302,7 @@ export EnsembleCPUArray, EnsembleGPUArray, EnsembleGPUKernel, LinSolveGPUSplitFa
 export GPUTsit5, GPUVern7, GPUVern9, GPUEM, GPUSIEA
 export terminate!
 
-if !isdefined(Base, :get_extension)
+if true
     include("../ext/CUDAExt.jl")
 end
 
