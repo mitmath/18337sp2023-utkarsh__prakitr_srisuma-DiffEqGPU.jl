@@ -29,7 +29,7 @@ if GROUP === "ROCM"
     using AMDGPU
     probs = probs |> ROCArray
 elseif GROUP === "ONEAPI"
-    using AMDGPU
+    using oneAPI
     probs = probs |> oneArray
 end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
