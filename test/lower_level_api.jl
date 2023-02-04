@@ -1,6 +1,8 @@
-using DiffEqGPU, StaticArrays, oneAPI, DiffEqBase
+using DiffEqGPU, StaticArrays, DiffEqBase
 
 trajectories = 10_000
+
+const GROUP = get(ENV, "GROUP", "All")
 
 function lorenz(u, p, t)
     σ = p[1]
@@ -23,8 +25,13 @@ probs = map(1:trajectories) do i
 end;
 
 ## Move the arrays to the GPU
-probs = probs |> oneArray
-
+if GROUP === "ROCM"
+    using AMDGPU
+    probs = probs |> ROCArray
+elseif GROUP === "ONEAPI"
+    using AMDGPU
+    probs = probs |> oneArray
+end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
 
 # Run once for compilation
@@ -34,6 +41,9 @@ probs = probs |> oneArray
 @time ts, us = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
 
+@benchmark DiffEqGPU.vectorized_solve($probs, $prob, GPUTsit5(); save_everystep = false,
+                                      dt = 0.1f0)
+
 ## Adaptive time-stepping
 # Run once for compilation
 @time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
@@ -41,3 +51,6 @@ probs = probs |> oneArray
 
 @time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
+
+@benchmark DiffEqGPU.vectorized_asolve($probs, $prob, GPUTsit5(); save_everystep = false,
+                                       dt = 0.1f0)
