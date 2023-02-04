@@ -4,6 +4,8 @@ trajectories = 10_000
 
 const GROUP = get(ENV, "GROUP", "All")
 
+@show GROUP
+
 function lorenz(u, p, t)
     σ = p[1]
     ρ = p[2]
