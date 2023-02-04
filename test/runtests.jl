@@ -27,12 +27,9 @@ using SafeTestsets, Test
 # # Not safe because distributed doesn't play nicely with modules.
 # @time @testset "Distributed Multi-GPU" begin include("distributed_multi_gpu.jl") end
 
-using Metal
-@show Metal.versioninfo()
-a = MtlArray([1])
-a .+ 1
-arr = Array(a)
-@test a[1] == 2
+using oneAPI
+@show oneAPI.versioninfo()
+@test collect(oneArray([1 2; 3 4])) == [1 2; 3 4]
 # @time @testset "GPU Kernelized ODE Regression" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
 # @time @testset "GPU Kernelized ODE DiscreteCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
 # @time @testset "GPU Kernelized ODE ContinuousCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
