@@ -51,9 +51,6 @@ StaticArrays = "1"
 ZygoteRules = "0.2"
 julia = "1.6"
 
-[extensions]
-CUDAExt = "CUDA"
-
 [extras]
 BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 DiffEqDevTools = "f3b72e0c-5b89-59e1-b016-84e28bfd966d"
@@ -71,6 +68,3 @@ Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
 test = ["BenchmarkTools", "DiffEqDevTools", "ForwardDiff", "Flux", "OrdinaryDiffEq", "SafeTestsets", "StaticArrays", "Statistics", "StochasticDiffEq", "Test", "Random", "SciMLSensitivity"]
-
-[weakdeps]
-CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
