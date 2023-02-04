@@ -1,17 +1,18 @@
 # Pkg.test runs with --check_bounds=1, forcing all bounds checks.
 # This is incompatible with GPUifyLoops.
 # TODO: Is this needed any longer?
-if Base.JLOptions().check_bounds == 1
-    cmd = Cmd(filter(arg -> !startswith(arg, "--check-bounds"), Base.julia_cmd().exec))
-    code = """
-      $(Base.load_path_setup_code(false))
-      cd($(repr(@__DIR__)))
-      include($(repr(@__FILE__)))
-      """
-    run(`$cmd --eval $code`)
-    exit()
-end
-@assert Base.JLOptions().check_bounds == 0
+
+# if Base.JLOptions().check_bounds == 1
+#     cmd = Cmd(filter(arg -> !startswith(arg, "--check-bounds"), Base.julia_cmd().exec))
+#     code = """
+#       $(Base.load_path_setup_code(false))
+#       cd($(repr(@__DIR__)))
+#       include($(repr(@__FILE__)))
+#       """
+#     run(`$cmd --eval $code`)
+#     exit()
+# end
+# @assert Base.JLOptions().check_bounds == 0
 
 using SafeTestsets, Test
 
@@ -30,7 +31,7 @@ using SafeTestsets, Test
 @time @testset "GPU Kernelized ODE test" begin include("lower_level_api.jl") end
 @time @testset "GPU Kernelized ODE Regression" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
 @time @testset "GPU Kernelized ODE DiscreteCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
-# @time @testset "GPU Kernelized ODE ContinuousCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
+@time @testset "GPU Kernelized ODE ContinuousCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
 
 # @time @testset "GPU Kernelized SDE Regression" begin include("gpu_kernel_de/gpu_sde_regression.jl") end
 # @time @testset "GPU Kernelized SDE Convergence" begin include("gpu_kernel_de/gpu_sde_convergence.jl") end

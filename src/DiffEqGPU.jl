@@ -23,8 +23,11 @@ using Random
 # TODO: remove
 using CUDA, CUDAKernels
 using AMDGPU, ROCKernels
-using oneAPI, oneAPIKernels
-
+try
+    using oneAPI, oneAPIKernels
+catch e
+    @warn e
+end
 @kernel function gpu_kernel(f, du, @Const(u), @Const(p), @Const(t))
     i = @index(Global, Linear)
     @views @inbounds f(du[:, i], u[:, i], p[:, i], t)
