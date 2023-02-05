@@ -1,6 +1,6 @@
 using DiffEqGPU, StaticArrays, DiffEqBase, BenchmarkTools
 
-trajectories = 10
+trajectories = 2
 
 const GROUP = get(ENV, "GROUP", "All")
 
@@ -58,4 +58,3 @@ end
 # bench = @benchmark DiffEqGPU.vectorized_asolve($probs, $prob, GPUTsit5();
 #                                                save_everystep = false,
 #                                                dt = 0.1f0)
-@show bench

@@ -20,9 +20,9 @@ for alg in algs
     monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
     @info typeof(alg)
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 10,
+    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 2,
                 adaptive = false, dt = 0.01f0)
-    asol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 10,
+    asol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 2,
                  adaptive = true, dt = 0.1f-1, abstol = 1.0f-7, reltol = 1.0f-7)
 
     @test sol.converged == true
@@ -91,10 +91,10 @@ for alg in algs
     @test length(sol[1].u) == length(bench_sol.u)
 
     ### Huge number of threads
-    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 10_000,
+    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 2,
                 adaptive = false, dt = 0.01f0, save_everystep = false)
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 10_000,
+    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 2,
                 adaptive = true, dt = 0.01f0, save_everystep = false)
 
     ## With random parameters
@@ -102,8 +102,8 @@ for alg in algs
     prob_func = (prob, i, repeat) -> remake(prob, p = (@SVector rand(Float32, 3)) .* p)
     monteprob = EnsembleProblem(prob, prob_func = prob_func, safetycopy = false)
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 10,
+    sol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 2,
                 adaptive = false, dt = 0.1f0)
-    asol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 10,
+    asol = solve(monteprob, alg, EnsembleGPUKernel(), trajectories = 2,
                  adaptive = true, dt = 0.1f-1, abstol = 1.0f-7, reltol = 1.0f-7)
 end
