@@ -35,8 +35,6 @@ function vectorized_solve(probs, prob::ODEProblem, alg;
         CuArray, CUDADevice{true}() #=prefer_blocks=#
     elseif get_device(probs) isa ROCDevice
         ROCArray, ROCDevice()
-    elseif get_device(probs) isa oneAPIDevice
-        (oneArray, oneAPIDevice())
     else
         (MtlArray, MetalDevice())
     end
@@ -93,8 +91,6 @@ function vectorized_solve(probs, prob::SDEProblem, alg;
         (CuArray, CUDADevice{true}()) #=prefer_blocks=#
     elseif get_device(probs) isa ROCDevice
         (ROCArray, ROCDevice())
-    elseif get_device(probs) isa oneAPIDevice
-        (oneArray, oneAPIDevice())
     else
         (MtlArray, MetalDevice())
     end
@@ -144,8 +140,6 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
         (CuArray, CUDADevice{true}()) #=prefer_blocks=#
     elseif get_device(probs) isa ROCDevice
         (ROCArray, ROCDevice())
-    elseif get_device(probs) isa oneAPIDevice
-        (oneArray, oneAPIDevice())
     else
         (MtlArray, MetalDevice())
     end

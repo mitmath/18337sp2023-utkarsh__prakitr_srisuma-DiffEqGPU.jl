@@ -30,8 +30,6 @@ SimpleDiffEq = "05bca326-078c-5bf0-a5bf-ce7c7982d7fd"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 TOML = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 ZygoteRules = "700de1a5-db45-46bc-99cf-38207098b444"
-oneAPI = "8f75cd03-7ff8-4ecb-9b8f-daf728133b1b"
-oneAPIKernels = "3b98bdbd-c5fb-40e4-a3b9-3b59ff234f62"
 
 [compat]
 Adapt = "3"

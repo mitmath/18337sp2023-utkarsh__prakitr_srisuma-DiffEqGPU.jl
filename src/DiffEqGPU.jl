@@ -22,7 +22,7 @@ using Random
 
 # TODO: remove
 try
-    using CUDA
+    using CUDA, CUDAKernels
 catch e
     @warn e
 end
@@ -34,11 +34,7 @@ catch e
 end
 
 using AMDGPU, ROCKernels
-try
-    using oneAPI, oneAPIKernels
-catch e
-    @warn e
-end
+
 @kernel function gpu_kernel(f, du, @Const(u), @Const(p), @Const(t))
     i = @index(Global, Linear)
     @views @inbounds f(du[:, i], u[:, i], p[:, i], t)
