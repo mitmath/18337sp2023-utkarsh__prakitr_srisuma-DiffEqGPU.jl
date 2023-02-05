@@ -60,8 +60,6 @@ function vectorized_solve(probs, prob::ODEProblem, alg;
 
     tstops = adapt(ArrayT, tstops)
 
-    @show dev
-
     if alg isa GPUTsit5
         kernel = tsit5_kernel(dev)
     elseif alg isa GPUVern7
@@ -78,6 +76,8 @@ function vectorized_solve(probs, prob::ODEProblem, alg;
     # no useful operations, etc). That's unfortunate though, since this loop is
     # generally slower than the entire GPU execution, and necessitates synchronization
     #EDIT: Done when using with DiffEqGPU
+    @show ts
+    @show us
     ts, us
 end
 
@@ -113,8 +113,6 @@ function vectorized_solve(probs, prob::SDEProblem, alg;
     us = adapt(ArrayT, us)
     ts = adapt(ArrayT, ts)
 
-    @show dev
-
     if alg isa GPUEM
         kernel = em_kernel(dev)
     elseif alg isa Union{GPUSIEA}
@@ -127,6 +125,8 @@ function vectorized_solve(probs, prob::SDEProblem, alg;
                    ndrange = length(probs), dependencies = Event(dev))
     wait(dev, event)
 
+    @show ts
+    @show us
     ts, us
 end
 
@@ -168,8 +168,6 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
     ts = adapt(ArrayT, ts)
     tstops = adapt(ArrayT, tstops)
 
-    @show dev
-
     if alg isa GPUTsit5
         kernel = atsit5_kernel(dev)
     elseif alg isa GPUVern7
@@ -187,6 +185,8 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
     # no useful operations, etc). That's unfortunate though, since this loop is
     # generally slower than the entire GPU execution, and necessitates synchronization
     #EDIT: Done when using with DiffEqGPU
+    @show ts
+    @show us
     ts, us
 end
 
