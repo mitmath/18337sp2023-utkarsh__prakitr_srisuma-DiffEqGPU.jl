@@ -30,9 +30,9 @@ if GROUP == "ROCM"
     @show "Here"
     using AMDGPU
     probs = roc(probs)
-elseif GROUP == "ONEAPI"
-    using oneAPI
-    probs = probs |> oneArray
+elseif GROUP == "METAL"
+    using Metal
+    probs = probs |> MtlArray
 end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
 

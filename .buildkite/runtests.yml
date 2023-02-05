@@ -1,7 +1,8 @@
 steps:
   - label: ":julia: Run tests on Julia v1 with Intel oneAPI"
     env:
-      GROUP: ONEAPI
+      GROUP: METAL
+    command: julia .ci/develop.jl
     plugins:
       - JuliaCI/julia#v1:
           version: "1"
@@ -9,8 +10,9 @@ steps:
       - JuliaCI/julia-test#v1:
            coverage: false # 1000x slowdown
     agents:
-      queue: "juliagpu"
-      intel: "*"
+      queue: "juliaecosystem"
+      os: "macos"
+      arch: "aarch64"
     timeout_in_minutes: 120
     # Don't run Buildkite if the commit message includes the text [skip tests]
     if: build.message !~ /\[skip tests\]/

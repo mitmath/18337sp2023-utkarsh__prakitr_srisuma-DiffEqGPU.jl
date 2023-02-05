@@ -27,6 +27,12 @@ catch e
     @warn e
 end
 
+try
+    using Metal, MetalKernels
+catch e
+    @warn e
+end
+
 using AMDGPU, ROCKernels
 try
     using oneAPI, oneAPIKernels
@@ -703,7 +709,7 @@ function batch_solve_up_kernel(ensembleprob, probs, alg, ensemblealg, I, adaptiv
         ## TODO: Add support for ROCArrays
         roc(probs)
     else
-        probs |> oneArray
+        probs |> MtlArray
     end
 
     #Adaptive version only works with saveat
