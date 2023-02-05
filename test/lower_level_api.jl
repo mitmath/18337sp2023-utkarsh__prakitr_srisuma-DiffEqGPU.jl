@@ -1,6 +1,6 @@
 using DiffEqGPU, StaticArrays, DiffEqBase, BenchmarkTools
 
-trajectories = 10_000
+trajectories = 10
 
 const GROUP = get(ENV, "GROUP", "All")
 
