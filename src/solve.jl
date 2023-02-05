@@ -164,6 +164,7 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
 
     us = adapt(ArrayT, us)
     ts = adapt(ArrayT, ts)
+    @show typeof(ts)
     tstops = adapt(ArrayT, tstops)
 
     if alg isa GPUTsit5
