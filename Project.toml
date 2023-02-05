@@ -36,7 +36,7 @@ oneAPIKernels = "3b98bdbd-c5fb-40e4-a3b9-3b59ff234f62"
 [compat]
 Adapt = "3"
 ArrayInterfaceGPUArrays = "0.1, 0.2"
-CUDAKernels = "0.4.4"
+CUDAKernels = "=0.4.4"
 ChainRulesCore = "1"
 DiffEqBase = "6.81"
 DocStringExtensions = "0.8, 0.9"
