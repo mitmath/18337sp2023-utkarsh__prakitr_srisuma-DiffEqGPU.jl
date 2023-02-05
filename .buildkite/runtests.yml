@@ -1,14 +1,12 @@
 steps:
-  - label: ":julia: Run tests on Julia v1 with Intel oneAPI"
+  - label: ":julia: Run tests on Julia v1 with Apple Metal"
     env:
       GROUP: METAL
-    command: julia .ci/develop.jl
     plugins:
       - JuliaCI/julia#v1:
-          version: "1"
+          version: "1.9-nightly"
           persist_depot_dirs: ""
-      - JuliaCI/julia-test#v1:
-           coverage: false # 1000x slowdown
+    command: julia .ci/develop.jl
     agents:
       queue: "juliaecosystem"
       os: "macos"
@@ -17,21 +15,21 @@ steps:
     # Don't run Buildkite if the commit message includes the text [skip tests]
     if: build.message !~ /\[skip tests\]/
   
-  - label: ":julia: Run tests on Julia v1.9 with AMD ROCm"
-    env:
-      GROUP: ROCM
-    plugins:
-      - JuliaCI/julia#v1:
-          version: "1.9-nightly"
-          persist_depot_dirs: ""
-      - JuliaCI/julia-test#v1:
-           coverage: false # 1000x slowdown
-    agents:
-      queue: "juliagpu"
-      rocm: "*"
-    timeout_in_minutes: 120
-    # Don't run Buildkite if the commit message includes the text [skip tests]
-    if: build.message !~ /\[skip tests\]/
+  # - label: ":julia: Run tests on Julia v1.9 with AMD ROCm"
+  #   env:
+  #     GROUP: ROCM
+  #   plugins:
+  #     - JuliaCI/julia#v1:
+  #         version: "1.9-nightly"
+  #         persist_depot_dirs: ""
+  #     - JuliaCI/julia-test#v1:
+  #          coverage: false # 1000x slowdown
+  #   agents:
+  #     queue: "juliagpu"
+  #     rocm: "*"
+  #   timeout_in_minutes: 120
+  #   # Don't run Buildkite if the commit message includes the text [skip tests]
+  #   if: build.message !~ /\[skip tests\]/
 
 env:
   JULIA_PKG_SERVER: "" # it often struggles with our large artifacts

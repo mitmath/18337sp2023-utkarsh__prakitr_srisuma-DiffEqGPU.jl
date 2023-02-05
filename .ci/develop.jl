@@ -1,13 +1,18 @@
-import Pkg
+using Pkg
 
-Pkg.update()
+@show pwd()
+Pkg.activate(".")
 
-@info "Add MetalKernels for KernelAbstractions"
+
+@info "Add MetalKernels for KernelAbstractions "
 
 Pkg.add(PackageSpec(url = "https://github.com/tgymnich/KernelAbstractions.jl.git",
                     rev = "metal", subdir = "lib/MetalKernels"))
-# PPkg.add(PackageSpec(url = "https://github.com/tgymnich/KernelAbstractions.jl.git",
-#                      rev = "metal"))
 
+Pkg.update()
+
+
+@show Pkg.status()
 Pkg.build()
 Pkg.precompile()
+Pkg.test()

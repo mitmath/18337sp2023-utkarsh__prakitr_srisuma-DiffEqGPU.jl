@@ -21,11 +21,11 @@ using Parameters, MuladdMacro
 using Random
 
 # TODO: remove
-try
-    using CUDA, CUDAKernels
-catch e
-    @warn e
-end
+# try
+#     using CUDA, CUDAKernels
+# catch e
+#     @warn e
+# end
 
 try
     using Metal, MetalKernels
