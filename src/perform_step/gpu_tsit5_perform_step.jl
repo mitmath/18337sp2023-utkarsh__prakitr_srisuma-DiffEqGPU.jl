@@ -58,7 +58,7 @@
         integ.k7 = k7
     end
 
-    # _, saved_in_cb = handle_callbacks!(integ, ts, us)
+    _, saved_in_cb = handle_callbacks!(integ, ts, us)
 
     return saved_in_cb
 end
