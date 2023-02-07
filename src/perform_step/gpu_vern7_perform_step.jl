@@ -17,7 +17,7 @@
     adv_integ = true
     ## Check if tstops are within the range of time-series
     if integ.tstops !== nothing && integ.tstops_idx <= length(integ.tstops) &&
-       (integ.tstops[integ.tstops_idx] - integ.t - integ.dt - 100 * eps(integ.t) < 0)
+       (integ.tstops[integ.tstops_idx] - integ.t - integ.dt - 100 * eps(T) < 0)
         integ.t = integ.tstops[integ.tstops_idx]
         dt = integ.t - integ.tprev
         integ.tstops_idx += 1
@@ -231,7 +231,7 @@ end
             else
                 if integ.tstops !== nothing && integ.tstops_idx <= length(integ.tstops) &&
                    integ.tstops[integ.tstops_idx] - integ.t - integ.dt -
-                   100 * eps(integ.t) < 0
+                   100 * eps(T) < 0
                     integ.t = integ.tstops[integ.tstops_idx]
                     integ.u = integ(integ.t)
                     dt = integ.t - integ.tprev

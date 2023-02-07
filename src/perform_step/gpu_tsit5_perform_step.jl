@@ -16,7 +16,7 @@
     adv_integ = true
     ## Check if tstops are within the range of time-series
     if integ.tstops !== nothing && integ.tstops_idx <= length(integ.tstops) &&
-       (integ.tstops[integ.tstops_idx] - integ.t - integ.dt - 100 * eps(integ.t) < 0)
+       (integ.tstops[integ.tstops_idx] - integ.t - integ.dt - 100 * eps(T) < 0)
         integ.t = integ.tstops[integ.tstops_idx]
         ## Set correct dt
         dt = integ.t - integ.tprev
@@ -58,7 +58,7 @@
         integ.k7 = k7
     end
 
-    _, saved_in_cb = handle_callbacks!(integ, ts, us)
+    # _, saved_in_cb = handle_callbacks!(integ, ts, us)
 
     return saved_in_cb
 end
@@ -148,7 +148,7 @@ end
 
     EEst = convert(T, Inf)
 
-    while EEst > convert(T, 1.0)
+    while EEst > convert(T, 1)
         dt < 100 * eps(T) && error("dt<dtmin")
 
         tmp = uprev + dt * a21 * k1
@@ -205,7 +205,7 @@ end
             else
                 if integ.tstops !== nothing && integ.tstops_idx <= length(integ.tstops) &&
                    integ.tstops[integ.tstops_idx] - integ.t - integ.dt -
-                   100 * eps(integ.t) < 0
+                   100 * eps(T) < 0
                     integ.t = integ.tstops[integ.tstops_idx]
                     integ.u = integ(integ.t)
                     dt = integ.t - integ.tprev

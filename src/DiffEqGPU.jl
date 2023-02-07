@@ -697,7 +697,7 @@ function batch_solve_up_kernel(ensembleprob, probs, alg, ensemblealg, I, adaptiv
                             convert.(DiffEqGPU.GPUContinuousCallback,
                                      _callback.continuous_callbacks)...)
 
-    gpu_probs = if has_cuda() && has_cuda_gpu()
+    gpu_probs = if false
         cu(probs)
     elseif has_rocm_gpu()
         ## TODO: Add support for ROCArrays
