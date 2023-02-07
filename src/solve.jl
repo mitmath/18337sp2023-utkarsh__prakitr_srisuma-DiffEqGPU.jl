@@ -60,8 +60,6 @@ function vectorized_solve(probs, prob::ODEProblem, alg;
 
     tstops = adapt(ArrayT, tstops)
 
-    @show dev
-
     if alg isa GPUTsit5
         kernel = tsit5_kernel(dev)
     elseif alg isa GPUVern7
@@ -112,8 +110,6 @@ function vectorized_solve(probs, prob::SDEProblem, alg;
 
     us = adapt(ArrayT, us)
     ts = adapt(ArrayT, ts)
-
-    @show dev
 
     if alg isa GPUEM
         kernel = em_kernel(dev)
@@ -167,8 +163,6 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
     us = adapt(ArrayT, us)
     ts = adapt(ArrayT, ts)
     tstops = adapt(ArrayT, tstops)
-
-    @show dev
 
     if alg isa GPUTsit5
         kernel = atsit5_kernel(dev)
