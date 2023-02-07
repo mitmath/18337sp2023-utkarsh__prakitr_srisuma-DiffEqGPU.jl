@@ -30,8 +30,8 @@ using SafeTestsets, Test
 
 @time @testset "GPU Kernelized ODE test" begin include("lower_level_api.jl") end
 @time @testset "GPU Kernelized ODE Regression" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
-@time @testset "GPU Kernelized ODE DiscreteCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
-@time @testset "GPU Kernelized ODE ContinuousCallback" begin include("gpu_kernel_de/gpu_ode_regression.jl") end
+@time @testset "GPU Kernelized ODE DiscreteCallback" begin include("gpu_kernel_de/gpu_ode_discrete_callbacks.jl") end
+@time @testset "GPU Kernelized ODE ContinuousCallback" begin include("gpu_kernel_de/gpu_ode_continuous_callbacks.jl") end
 
 @time @testset "GPU Kernelized SDE Regression" begin include("gpu_kernel_de/gpu_sde_regression.jl") end
 @time @testset "GPU Kernelized SDE Convergence" begin include("gpu_kernel_de/gpu_sde_convergence.jl") end
