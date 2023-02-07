@@ -172,13 +172,6 @@ for alg in algs
 
     @info "Terminate callback"
 
-    condition(u, t, integrator) = t == 2.40f0
-
-    function affect!(integrator)
-        integrator.u += @SVector[10.0f0]
-        terminate!(integrator)
-    end
-
     cb = DiscreteCallback(condition, affect!; save_positions = (false, false))
 
     sol = solve(monteprob, alg, EnsembleGPUKernel(),
