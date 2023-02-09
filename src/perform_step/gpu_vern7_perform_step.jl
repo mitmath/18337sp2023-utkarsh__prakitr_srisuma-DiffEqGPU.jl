@@ -158,7 +158,7 @@ end
     EEst = convert(T, Inf)
 
     while EEst > convert(T, 1.0)
-        dt < 100 * eps(T) && error("dt<dtmin")
+        dt < convert(T, 1e-14) && error("dt<dtmin")
 
         k1 = f(uprev, p, t)
         a = dt * a021
@@ -226,7 +226,7 @@ end
             integ.tprev = t
             integ.u = u
 
-            if (tf - t - dt) < 100 * eps(T)
+            if (tf - t - dt) < convert(T, 1e-14)
                 integ.t = tf
             else
                 if integ.tstops !== nothing && integ.tstops_idx <= length(integ.tstops) &&
