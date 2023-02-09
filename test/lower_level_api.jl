@@ -33,6 +33,9 @@ if GROUP == "ROCM"
 elseif GROUP == "ONEAPI"
     using oneAPI
     probs = probs |> oneArray
+elseif GROUP == "CUDA"
+    using CUDA
+    probs = cu(probs)
 end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
 
