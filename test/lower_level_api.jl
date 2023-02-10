@@ -2,7 +2,7 @@ using DiffEqGPU, StaticArrays, DiffEqBase, BenchmarkTools, Test
 
 trajectories = 2
 
-const GROUP = get(ENV, "GROUP", "All")
+const GROUP = get(ENV, "GROUP", "METAL")
 
 function lorenz(u, p, t)
     σ = p[1]
