@@ -1,4 +1,4 @@
-using DiffEqGPU, StaticArrays, DiffEqBase, BenchmarkTools
+using DiffEqGPU, StaticArrays, DiffEqBase, BenchmarkTools, Test
 
 trajectories = 2
 
@@ -37,11 +37,14 @@ end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
 
 # Run once for compilation
-@time ts, us = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
+@time ts1, us1 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
 
-@time ts, us = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
+@time ts2, us2 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
+
+@test ts1 == ts2
+@test us1 == us2
 
 # bench = @benchmark DiffEqGPU.vectorized_solve($probs, $prob, GPUTsit5();
 #                                               save_everystep = false,
@@ -49,12 +52,15 @@ end
 # @show bench
 ## Adaptive time-stepping
 # Run once for compilation
-@time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
+@time ts1, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
 
-@time ts, us = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
+@time ts1, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
 
+
+@test ts1 == ts2
+@test us1 == us2
 # bench = @benchmark DiffEqGPU.vectorized_asolve($probs, $prob, GPUTsit5();
 #                                                save_everystep = false,
 #                                                dt = 0.1f0)
