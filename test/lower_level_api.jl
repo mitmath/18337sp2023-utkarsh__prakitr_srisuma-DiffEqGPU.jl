@@ -43,8 +43,8 @@ end
 @time ts2, us2 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
 
-@test ts1 == ts2
-@test us1 == us2
+@test Array(ts1) == Array(ts2)
+@test Array(us1) == Array(us2)
 
 # bench = @benchmark DiffEqGPU.vectorized_solve($probs, $prob, GPUTsit5();
 #                                               save_everystep = false,
@@ -52,15 +52,15 @@ end
 # @show bench
 ## Adaptive time-stepping
 # Run once for compilation
-@time ts1, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
+@time ts1, us1 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
 
 @time ts2, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
 
 
-@test ts1 == ts2
-@test us1 == us2
+@test Array(ts1) == Array(ts2)
+@test Array(us1) == Array(us2)
 # bench = @benchmark DiffEqGPU.vectorized_asolve($probs, $prob, GPUTsit5();
 #                                                save_everystep = false,
 #                                                dt = 0.1f0)
