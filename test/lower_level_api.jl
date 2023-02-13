@@ -37,11 +37,14 @@ end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
 
 # Run once for compilation
-@time ts1, us1 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
+ts1, us1 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
 
-@time ts2, us2 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
+ts2, us2 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
                                           dt = 0.1f0)
+
+@show ts1, ts2
+@show us1, us2
 
 @test Array(ts1) == Array(ts2)
 @test Array(us1) == Array(us2)
@@ -52,11 +55,14 @@ end
 # @show bench
 ## Adaptive time-stepping
 # Run once for compilation
-@time ts1, us1 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
+ts1, us1 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
 
-@time ts2, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
+ts2, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
                                            dt = 0.1f0)
+
+@show ts1, ts2
+@show us1, us2
 
 
 @test Array(ts1) == Array(ts2)
