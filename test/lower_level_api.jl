@@ -41,7 +41,7 @@ ts1, us1 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = 
                                           dt = 0.1f0)
 
 ts2, us2 = DiffEqGPU.vectorized_solve(probs, prob, GPUTsit5(); save_everystep = false,
-                                          dt = 0.1f0)
+                                          dt = 0.01f0)
 
 @show ts1, ts2
 @show us1, us2
@@ -59,7 +59,7 @@ ts1, us1 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep =
                                            dt = 0.1f0)
 
 ts2, us2 = DiffEqGPU.vectorized_asolve(probs, prob, GPUTsit5(); save_everystep = false,
-                                           dt = 0.1f0)
+                                           dt = 0.01f0)
 
 @show ts1, ts2
 @show us1, us2
