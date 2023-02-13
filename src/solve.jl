@@ -76,7 +76,6 @@ function vectorized_solve(probs, prob::ODEProblem, alg;
     # no useful operations, etc). That's unfortunate though, since this loop is
     # generally slower than the entire GPU execution, and necessitates synchronization
     #EDIT: Done when using with DiffEqGPU
-    @show ts
     ts, us
 end
 
@@ -124,7 +123,6 @@ function vectorized_solve(probs, prob::SDEProblem, alg;
                    ndrange = length(probs), dependencies = Event(dev))
     wait(dev, event)
 
-    @show ts
     ts, us
 end
 
@@ -184,7 +182,6 @@ function vectorized_asolve(probs, prob::ODEProblem, alg;
     # no useful operations, etc). That's unfortunate though, since this loop is
     # generally slower than the entire GPU execution, and necessitates synchronization
     #EDIT: Done when using with DiffEqGPU
-    @show ts
     ts, us
 end
 
