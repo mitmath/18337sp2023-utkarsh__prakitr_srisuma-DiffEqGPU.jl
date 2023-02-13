@@ -9,7 +9,7 @@ Pkg.add(PackageSpec(url = "https://github.com/tgymnich/KernelAbstractions.jl.git
                     rev = "metal", subdir = "lib/MetalKernels"))
 
 Pkg.add(PackageSpec(url = "https://github.com/tgymnich/Metal.jl.git",
-                    rev = "copyto"))
+                    rev = "main"))
 
 Pkg.update()
 
