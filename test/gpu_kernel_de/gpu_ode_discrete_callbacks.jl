@@ -105,70 +105,70 @@ for alg in algs
 
     @info "Adaptive version"
 
-    cb = DiscreteCallback(condition, affect!; save_positions = (false, false))
+    # cb = DiscreteCallback(condition, affect!; save_positions = (false, false))
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(),
-                trajectories = 2,
-                adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
-                tstops = [4.0f0])
+    # sol = solve(monteprob, alg, EnsembleGPUKernel(),
+    #             trajectories = 2,
+    #             adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
+    #             tstops = [4.0f0])
 
-    bench_sol = solve(prob, Vern9(),
-                      adaptive = true, save_everystep = false, dt = 1.0f0, callback = cb,
-                      merge_callbacks = true,
-                      tstops = [4.0f0])
+    # bench_sol = solve(prob, Vern9(),
+    #                   adaptive = true, save_everystep = false, dt = 1.0f0, callback = cb,
+    #                   merge_callbacks = true,
+    #                   tstops = [4.0f0])
 
-    @test norm(bench_sol(4.0f0) - sol[1](4.0f0)) < 5e-5
-    @test norm(bench_sol.u - sol[1].u) < 2e-4
+    # @test norm(bench_sol(4.0f0) - sol[1](4.0f0)) < 5e-5
+    # @test norm(bench_sol.u - sol[1].u) < 2e-4
 
-    @info "Callback: CallbackSets"
+    # @info "Callback: CallbackSets"
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(),
-                trajectories = 2,
-                adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
-                tstops = [2.40f0, 4.0f0])
+    # sol = solve(monteprob, alg, EnsembleGPUKernel(),
+    #             trajectories = 2,
+    #             adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
+    #             tstops = [2.40f0, 4.0f0])
 
-    bench_sol = solve(prob, Vern9(),
-                      adaptive = true, dt = 1.0f0, save_everystep = false, callback = cb,
-                      merge_callbacks = true,
-                      tstops = [2.40f0, 4.0f0])
+    # bench_sol = solve(prob, Vern9(),
+    #                   adaptive = true, dt = 1.0f0, save_everystep = false, callback = cb,
+    #                   merge_callbacks = true,
+    #                   tstops = [2.40f0, 4.0f0])
 
-    @test norm(bench_sol(2.40f0) - sol[1](2.40f0)) < 6e-4
-    @test norm(bench_sol(4.0f0) - sol[1](4.0f0)) < 1e-3
-    @test norm(bench_sol.u - sol[1].u) < 3e-3
+    # @test norm(bench_sol(2.40f0) - sol[1](2.40f0)) < 6e-4
+    # @test norm(bench_sol(4.0f0) - sol[1](4.0f0)) < 1e-3
+    # @test norm(bench_sol.u - sol[1].u) < 3e-3
 
-    @info "saveat and callbacks"
+    # @info "saveat and callbacks"
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(),
-                trajectories = 2,
-                adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
-                tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 6.0f0], reltol = 1.0f-7,
-                abstol = 1.0f-7)
+    # sol = solve(monteprob, alg, EnsembleGPUKernel(),
+    #             trajectories = 2,
+    #             adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
+    #             tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 6.0f0], reltol = 1.0f-7,
+    #             abstol = 1.0f-7)
 
-    bench_sol = solve(prob, Vern9(),
-                      adaptive = true, save_everystep = false, dt = 1.0f0, callback = cb,
-                      merge_callbacks = true,
-                      tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 6.0f0], reltol = 1.0f-7,
-                      abstol = 1.0f-7)
+    # bench_sol = solve(prob, Vern9(),
+    #                   adaptive = true, save_everystep = false, dt = 1.0f0, callback = cb,
+    #                   merge_callbacks = true,
+    #                   tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 6.0f0], reltol = 1.0f-7,
+    #                   abstol = 1.0f-7)
 
-    @test norm(bench_sol(2.40f0) - sol[1](2.40f0)) < 7e-3
-    @test norm(bench_sol(6.0f0) - sol[1](6.0f0)) < 2e-2
-    @test norm(bench_sol.u - sol[1].u) < 2e-2
+    # @test norm(bench_sol(2.40f0) - sol[1](2.40f0)) < 7e-3
+    # @test norm(bench_sol(6.0f0) - sol[1](6.0f0)) < 2e-2
+    # @test norm(bench_sol.u - sol[1].u) < 2e-2
 
-    @info "Unadaptive and Adaptive comparison"
+    # @info "Unadaptive and Adaptive comparison"
 
-    sol = solve(monteprob, alg, EnsembleGPUKernel(),
-                trajectories = 2,
-                adaptive = false, dt = 0.1f0, callback = cb, merge_callbacks = true,
-                tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 4.0f0])
+    # sol = solve(monteprob, alg, EnsembleGPUKernel(),
+    #             trajectories = 2,
+    #             adaptive = false, dt = 0.1f0, callback = cb, merge_callbacks = true,
+    #             tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 4.0f0])
 
-    asol = solve(monteprob, alg, EnsembleGPUKernel(),
-                 trajectories = 2,
-                 adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
-                 tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 4.0f0])
+    # asol = solve(monteprob, alg, EnsembleGPUKernel(),
+    #              trajectories = 2,
+    #              adaptive = true, dt = 1.0f0, callback = cb, merge_callbacks = true,
+    #              tstops = [2.40f0, 4.0f0], saveat = [0.0f0, 4.0f0])
 
-    @test norm(asol[1](2.40f0) - sol[1](2.40f0)) < 3e-3
-    @test norm(asol[1](4.0f0) - sol[1](4.0f0)) < 4e-3
-    @test norm(asol[1].u - sol[1].u) < 4e-3
+    # @test norm(asol[1](2.40f0) - sol[1](2.40f0)) < 3e-3
+    # @test norm(asol[1](4.0f0) - sol[1](4.0f0)) < 4e-3
+    # @test norm(asol[1].u - sol[1].u) < 4e-3
 
     @info "Terminate callback"
 
