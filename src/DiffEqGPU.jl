@@ -649,7 +649,8 @@ function batch_solve(ensembleprob, alg,
             saveat = _saveat === nothing ? get(kwargs, :saveat, nothing) : _saveat
             solts, solus = batch_solve_up_kernel(ensembleprob, probs, alg, ensemblealg, I,
                                                  adaptive; saveat = saveat, kwargs...)
-
+            @show solus
+            @show solts
             [begin
                  ts = @view solts[:, i]
                  us = @view solus[:, i]
