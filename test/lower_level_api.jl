@@ -25,16 +25,17 @@ probs = map(1:trajectories) do i
 end;
 
 ## Move the arrays to the GPU
-@show GROUP == "ROCM"
 if GROUP == "ROCM"
-    @show "Here"
+    @show "ROCM"
     using AMDGPU
     probs = roc(probs)
 elseif GROUP == "ONEAPI"
     using oneAPI
+    @show "oneAPI"
     probs = probs |> oneArray
 elseif GROUP == "CUDA"
     using CUDA
+    @show "CUDA"
     probs = cu(probs)
 end
 ## Finally use the lower API for faster solves! (Fixed time-stepping)
